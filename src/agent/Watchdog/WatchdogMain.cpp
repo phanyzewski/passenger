@@ -664,7 +664,9 @@ usage() {
 	printf("                              switching is disabled. Default: the default\n");
 	printf("                              user's primary group\n");
 	printf("\n");
-	printf("      --daemonize             Daemonize into the background\n");
+  printf("      --disable-log-prefix    Disables prefixing application logs with App PID stdout\n");
+	printf("\n");
+  printf("      --daemonize             Daemonize into the background\n");
 	printf("      --user NAME             Lower privilege to the given user\n");
 	printf("      --pid-file PATH         Store the watchdog's PID in the given file. The\n");
 	printf("                              file is deleted on exit\n");
@@ -789,6 +791,9 @@ parseOptions(int argc, const char *argv[], ConfigKit::Store &config) {
 		} else if (p.isValueFlag(argc, i, argv[i], '\0', "--default-group")) {
 			updates["default_group"] = argv[i + 1];
 			i += 2;
+    } else if (p.isFlag(argv[i], '\0', "--disable-log-prefix")) {
+			updates["disable_log_prefix"] = true;
+			i++;
 		} else if (p.isFlag(argv[i], '\0', "--daemonize")) {
 			updates["daemonize"] = true;
 			i++;
